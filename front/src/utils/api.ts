@@ -14,8 +14,30 @@ export const getNotes = async (): Promise<Note[]> => {
 };
 export const getNoteById = async (id: string): Promise<Note> => {
   try {
-    console.log(id);
     const res = await axios.get(`${API_URL}/api/getNote/${id}`);
+
+    return res.data;
+  } catch (error: any) {
+    throw new Error(`Error getting note: ${error.message}`);
+  }
+};
+export const toggleNoteById = async (
+  id: string,
+  completed: boolean
+): Promise<Note[]> => {
+  try {
+    const res = await axios.put(`${API_URL}/api/toggleNote/${id}`, {
+      completed,
+    });
+
+    return res.data;
+  } catch (error: any) {
+    throw new Error(`Error getting note: ${error.message}`);
+  }
+};
+export const removeNoteById = async (id: string): Promise<Note[]> => {
+  try {
+    const res = await axios.delete(`${API_URL}/api/deleteNote/${id}`);
 
     return res.data;
   } catch (error: any) {
