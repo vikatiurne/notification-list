@@ -35,6 +35,20 @@ export const toggleNoteById = async (
     throw new Error(`Error getting note: ${error.message}`);
   }
 };
+export const editNoteById = async (
+  id: string,
+  text: string
+): Promise<Note[]> => {
+  try {
+    const res = await axios.put(`${API_URL}/api/editNote/${id}`, {
+      text,
+    });
+
+    return res.data;
+  } catch (error: any) {
+    throw new Error(`Error edit note: ${error.message}`);
+  }
+};
 export const removeNoteById = async (id: string): Promise<Note[]> => {
   try {
     const res = await axios.delete(`${API_URL}/api/deleteNote/${id}`);

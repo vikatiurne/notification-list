@@ -7,13 +7,19 @@ interface ActionBtnProps {
 }
 
 const ActionBtns: React.FC<ActionBtnProps> = ({ id }) => {
-  const { notes, toggleNote } = useContext(NoteContext)!;
+  const { notes, toggleNote, deleteNote, setFlagEdit } =
+    useContext(NoteContext)!;
 
   const curentNote = notes.find((note) => note._id === id);
 
   const [isChecked, setIsChecked] = useState<boolean | undefined>(
     curentNote?.completed
   );
+
+  const handleDeleteNote = async () => await deleteNote(id);
+  const handleEditNote = async () => {
+    if (curentNote) setFlagEdit(id, curentNote.text);
+  };
 
   const handleChangeCheckbox = async (
     e: React.ChangeEvent<HTMLInputElement>
@@ -25,7 +31,12 @@ const ActionBtns: React.FC<ActionBtnProps> = ({ id }) => {
 
   return (
     <div className="flex justify-center gap-6">
-      <button className="p-2 rounded bg-red-400">Delete Note</button>
+      <button
+        onClick={handleDeleteNote}
+        className="p-2 rounded bg-red-400 cursor-pointer"
+      >
+        Delete Note
+      </button>
       <input
         className="w-8"
         type="checkbox"
@@ -34,6 +45,12 @@ const ActionBtns: React.FC<ActionBtnProps> = ({ id }) => {
         checked={isChecked}
         onChange={handleChangeCheckbox}
       />
+      <button
+        onClick={handleEditNote}
+        className="p-2 rounded bg-green-400 cursor-pointer"
+      >
+        Edit Note
+      </button>
     </div>
   );
 };

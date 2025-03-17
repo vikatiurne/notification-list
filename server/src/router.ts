@@ -8,6 +8,7 @@ router.get("/getNotes", controller.getNotes);
 router.post("/createNote", controller.createNote);
 router.get("/getNote/:id", controller.getNotesById);
 router.put("/toggleNote/:id", controller.toggleNote);
+router.put("/editNote/:id", controller.editNode);
 router.delete("/deleteNote/:id", controller.deleteNote);
 
 export default router;
